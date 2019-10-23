@@ -8,9 +8,9 @@ def shuffle(arr):
     Args:
         arr: list of elements to shuffle
     '''
-    for i in range(len(arr)-1):
+    for i in range(len(arr)):
         rand_index = random.randint(0, i)
-        arr[rand_index], arr[i+1] = arr[i+1], arr[rand_index]
+        arr[rand_index], arr[i] = arr[i], arr[rand_index]
 
 def test_shuffle(arr):
     ''' 
@@ -30,8 +30,8 @@ def test_shuffle(arr):
     print(json.dumps(occurances, indent=4))
 
 if __name__ == '__main__':
-    # test_data = "Weddings are basically funerals with cake.".split(' ')
+    # test_data = sys.argv[1:]
     # test_shuffle(test_data)
     args = sys.argv[1:]
     shuffle(args)
-    print(args)
+    print(' '.join(args))
