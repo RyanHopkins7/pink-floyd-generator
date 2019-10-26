@@ -39,7 +39,6 @@ def anagram(word):
     return anagrams
 
 
-
 if __name__ == '__main__':
     word = sys.argv[1]
     print(anagram(word))
