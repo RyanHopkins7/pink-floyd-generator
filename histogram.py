@@ -13,12 +13,21 @@ def dict_histogram(words):
     return sorted_word_list
 
 def list_histogram(words):
-    return list(map(list, dict_histogram(words).items()))
+    word_set = set(words)
+    return [[word, words.count(word)] for word in word_set]
+
+    # More effiecient
+    # return list(map(list, dict_histogram(words).items()))
 
 def tuple_histogram(words):
-    return dict_histogram(words).items()
+    word_set = set(words)
+    return list(zip(word_set, map(words.count, word_set)))
+
+    # More effiecient
+    # return dict_histogram(words).items()
 
 with open('theparochialhistoryofcornwall.txt') as f:
     words = f.read().split(' ')
-    print(list_histogram(words))
+    # print(tuple_histogram(words))
+    print(list_histogram([1,1,4,5,1]))
 
