@@ -1,3 +1,5 @@
+import json
+
 def dict_histogram(words):
     hist = {}
     for word in words:
@@ -11,6 +13,16 @@ def dict_histogram(words):
     sorted_word_list = {keyword: num_occur for num_occur, keyword in sorted_word_list}
 
     return sorted_word_list
+
+def list_counts(words):
+    word_counts = {}
+    for word, count in dict_histogram(words).items():
+        if count in word_counts:
+            word_counts[count].append(word)
+        else:
+            word_counts[count] = [word]
+
+    return word_counts
 
 def list_histogram(words):
     word_set = set(words)
@@ -28,6 +40,7 @@ def tuple_histogram(words):
 
 with open('theparochialhistoryofcornwall.txt') as f:
     words = f.read().split(' ')
-    # print(tuple_histogram(words))
-    print(list_histogram([1,1,4,5,1]))
+    # File is too large  for tuple hist and list hist
+    print(json.dumps(list_counts(words), indent=4))
+    # print(json.dumps(list_counts(['hi','i', 'i','a']), indent=4))
 
