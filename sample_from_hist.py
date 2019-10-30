@@ -10,11 +10,10 @@ def hist_sample(hist):
     Returns:
         Key
     '''
-    values = hist.values()
-    rand = random.randint(0, sum(values))
+    rand = random.randint(0, sum(hist.values()))
 
     s = 0
-    for i, val in enumerate(values):
+    for i, val in enumerate(hist.values()):
         s += val
         if rand <= s:
             return next(itertools.islice(hist.keys(), i, None))
