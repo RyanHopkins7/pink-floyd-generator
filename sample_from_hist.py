@@ -1,24 +1,47 @@
 import random
 import json
 import itertools
+import bisect
 
-def hist_sample(hist):
-    '''
-    Randomly samples a key from a histogram with probability based on the value of each key
-    Args:
-        histogram
-    Returns:
-        Key
-    '''
-    rand = random.randint(0, sum(hist.values()))
+class Histograph(dict):
+    sums = []
+    words = []
 
-    s = 0
-    for i, val in enumerate(hist.values()):
-        s += val
-        if rand <= s:
-            return next(itertools.islice(hist.keys(), i, None))
+    def __init__(self, d={}):
+        items = list(d.items())
+        for i, v in enumerate(items):
+            key, value = v
+            if i > 0:
+                value += self.sums[i-1]
+            self.sums.append(value)
+            self.words.append(key)
 
-# print(hist_sample({'red':1, 'fish':4, 'blue':1, 'one':1, 'two':1}))
+        super().__init__(d)
+
+    def __setitem__(self, key, item):
+        if len(self) > 0:
+            self.sums.append((self.sums[-1][0] + item, key))
+        else:
+            self.sums.append((item, key))
+
+        super().__setitem__(key, item)
+    
+    def hist_sample(self):
+        '''
+        Randomly samples a key from a histogram with probability based on the value of each key.
+        Uses binary search to do this in O(log(n)) time.
+        Returns:
+            str: word randomly selected in a weighted way
+        '''
+        if len(self) == 0:
+            return None
+
+        rand = random.randint(1, self.sums[-1])
+        return self.words[bisect.bisect_left(self.sums, rand)]
+
+test_hist = Histograph({'red':1, 'fish':4, 'blue':1, 'one':1, 'two':1})
+
+print(test_hist.hist_sample())
 
 def test_hist_sample(hist):
     ''' 
@@ -27,12 +50,12 @@ def test_hist_sample(hist):
     for key in hist:
         occurances[key] = 0
 
-    for _ in range(10000):
-        occurances[hist_sample(hist)] += 1
+    for _ in range(100000):
+        occurances[hist.hist_sample()] += 1
 
     for key in occurances:
-        occurances[key] /= 10000
+        occurances[key] /= 100000
 
     print(json.dumps(occurances, indent=4))
 
-test_hist_sample({'red':2, 'fish':1, 'blue':5, 'one':1, 'two':1})
+test_hist_sample(test_hist)
