@@ -38,9 +38,10 @@ def tuple_histogram(words):
     # More effiecient
     # return dict_histogram(words).items()
 
-with open('theparochialhistoryofcornwall.txt') as f:
-    words = f.read().split(' ')
-    # File is too large  for tuple hist and list hist
-    print(json.dumps(list_counts(words), indent=4))
-    # print(json.dumps(list_counts(['hi','i', 'i','a']), indent=4))
+if __name__ == '__main__':
+    with open('theparochialhistoryofcornwall.txt') as f:
+        words = f.read().split(' ')
+        # File is too large  for tuple hist and list hist
+        print(json.dumps(list_counts(words), indent=4))
+        # print(json.dumps(list_counts(['hi','i', 'i','a']), indent=4))
 

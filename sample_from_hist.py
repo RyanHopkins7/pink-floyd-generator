@@ -39,10 +39,6 @@ class Histograph(dict):
         rand = random.randint(1, self.sums[-1])
         return self.words[bisect.bisect_left(self.sums, rand)]
 
-test_hist = Histograph({'red':1, 'fish':4, 'blue':1, 'one':1, 'two':1})
-
-print(test_hist.hist_sample())
-
 def test_hist_sample(hist):
     ''' 
     '''
@@ -58,4 +54,8 @@ def test_hist_sample(hist):
 
     print(json.dumps(occurances, indent=4))
 
-test_hist_sample(test_hist)
+
+if __name__ == '__main__':
+    test_hist = Histograph({'red':1, 'fish':4, 'blue':1, 'one':1, 'two':1})
+    print(test_hist.hist_sample())
+    test_hist_sample(test_hist)
