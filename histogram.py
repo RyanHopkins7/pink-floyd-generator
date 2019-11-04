@@ -39,7 +39,7 @@ def tuple_histogram(words):
     # return dict_histogram(words).items()
 
 if __name__ == '__main__':
-    with open('theparochialhistoryofcornwall.txt') as f:
+    with open('pinkfloyd.txt') as f:
         words = f.read().split(' ')
         # File is too large  for tuple hist and list hist
         print(json.dumps(list_counts(words), indent=4))

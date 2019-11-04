@@ -4,7 +4,7 @@ from sample_from_hist import Histograph
 
 app = Flask(__name__)
 
-with open('theparochialhistoryofcornwall.txt') as f:
+with open('pinkfloyd.txt') as f:
     words = f.read().split(' ')
 
 hist = Histograph(dict_histogram(words))
