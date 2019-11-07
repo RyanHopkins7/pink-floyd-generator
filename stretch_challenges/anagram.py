@@ -8,7 +8,7 @@ def anagram(word):
     Returns:
         List of all anagrams of word from corpus words.txt
     '''
-    with open('words.txt', 'r') as corpus:
+    with open('corpus/words.txt', 'r') as corpus:
         real_words = corpus.read().split('\n')
     
     # Generate histograms of letters for each word in real_words

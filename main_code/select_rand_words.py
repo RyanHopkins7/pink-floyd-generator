@@ -9,7 +9,7 @@ def select_rand_words(num_words = 1):
     Returns:
         num_words random words in a String
     '''
-    with open('words.txt', 'r') as corpus:
+    with open('corpus/words.txt', 'r') as corpus:
         words = corpus.read().split('\n')
 
     rand_words = []
@@ -19,20 +19,8 @@ def select_rand_words(num_words = 1):
 
     return(' '.join(rand_words))
 
-if __name__ == '__main__':/''
+if __name__ == '__main__':
     if len(sys.argv) == 2:
         print(select_rand_words(int(sys.argv[1])))
     else:
         print(select_rand_words())
-
-
-
-
-
-
-
-
-
-
-
-

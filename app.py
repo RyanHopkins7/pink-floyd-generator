@@ -1,19 +1,19 @@
 from flask import Flask
-from histogram import dict_histogram
-from sample_from_hist import Histograph
+from main_code.histogram import dict_histogram
+from dictogram import Dictogram
 
 app = Flask(__name__)
 
-with open('pinkfloyd.txt') as f:
+with open('corpus/pinkfloyd.txt') as f:
     words = f.read().split(' ')
 
-hist = Histograph(dict_histogram(words))
+hist = Dictogram(dict_histogram(words))
 
 @app.route('/')
 def index():
     output = []
     for _ in range(10):
-        output.append(hist.hist_sample())
+        output.append(hist.sample())
     return ' '.join(output)
 
 if __name__ == '__main__':

@@ -3,11 +3,13 @@ import json
 import itertools
 import bisect
 
-class Histograph(dict):
+class Dictogram(dict):
     sums = []
     words = []
 
     def __init__(self, d={}):
+        """Initialize this histogram as a new dict and add sum."""
+        
         items = list(d.items())
         for i, v in enumerate(items):
             key, value = v
@@ -26,7 +28,7 @@ class Histograph(dict):
 
         super().__setitem__(key, item)
     
-    def hist_sample(self):
+    def sample(self):
         '''
         Randomly samples a key from a histogram with probability based on the value of each key.
         Uses binary search to do this in O(log(n)) time.
@@ -47,7 +49,7 @@ def test_hist_sample(hist):
         occurances[key] = 0
 
     for _ in range(100000):
-        occurances[hist.hist_sample()] += 1
+        occurances[hist.sample()] += 1
 
     for key in occurances:
         occurances[key] /= 100000
@@ -56,6 +58,6 @@ def test_hist_sample(hist):
 
 
 if __name__ == '__main__':
-    test_hist = Histograph({'red':1, 'fish':4, 'blue':1, 'one':1, 'two':1})
-    print(test_hist.hist_sample())
+    test_hist = Dictogram({'red':1, 'fish':4, 'blue':1, 'one':1, 'two':1})
+    print(test_hist.sample())
     test_hist_sample(test_hist)

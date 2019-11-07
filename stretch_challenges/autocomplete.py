@@ -1,7 +1,7 @@
 import sys
 
 def autocomplete(fragment):
-    with open('words.txt', 'r') as corpus:
+    with open('corpus/words.txt', 'r') as corpus:
         words = corpus.read().split('\n')
 
     possible_words = []
