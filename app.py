@@ -27,6 +27,7 @@ def index():
         if word[0].isupper():
             output = output[i:]
             break
+        
     i = len(output)
     for word in reversed(output):
         if word[-1] in '.?!':
