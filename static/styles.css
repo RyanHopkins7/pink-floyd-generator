@@ -1,0 +1,21 @@
+body {
+    background-image: url('pink_floyd-4.jpg');
+    color: white;
+}
+
+html {
+    overflow: hidden;
+}
+
+p {
+    text-shadow: 2px 2px 2px black;
+}
+
+.text-wrapper {
+    margin: 5px;
+}
+
+.wrapper .jumbotron {
+    background-color: rgba(0,0,0,0);
+    margin: 0;
+}
