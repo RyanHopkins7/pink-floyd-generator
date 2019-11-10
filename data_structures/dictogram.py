@@ -1,61 +1,73 @@
-#!python
-
-from __future__ import division, print_function  # Python 2 and 3 compatibility
-
+import random
+import json
+import itertools
+import bisect
 
 class Dictogram(dict):
-    """Dictogram is a histogram implemented as a subclass of the dict type."""
+    """ 
+    Custom dictogram class uses cache of sums and keys for log(n) sampling.
+    """
+    # List of cached sums of previous values in the hist used for sampling. Parallel to words.
+    sums = []
+    # List of cached keys used for sampling. Parallel to sums.
+    words = []
 
-    def __init__(self, word_list=None):
-        """Initialize this histogram as a new dict and count given words."""
-        super(Dictogram, self).__init__()  # Initialize this as a new dict
-        # Add properties to track useful word counts for this histogram
-        self.types = 0  # Count of distinct word types in this histogram
-        self.tokens = 0  # Total count of all word tokens in this histogram
-        # Count words in given list, if any
-        if word_list is not None:
-            for word in word_list:
-                self.add_count(word)
+    def __init__(self, d={}, word_list=[]):
+        """Initialize this histogram as a new dict and add sum."""
 
-    def add_count(self, word, count=1):
-        """Increase frequency count of given word by given count amount."""
-        # TODO: Increase word frequency by count
+        for word in word_list:
+            if word in d:
+                d[word] += 1
+            else:
+                d[word] = 1
+        
+        items = list(d.items())
+        for i, v in enumerate(items):
+            key, value = v
+            if i > 0:
+                value += self.sums[i-1]
+            self.sums.append(value)
+            self.words.append(key)
 
-    def frequency(self, word):
-        """Return frequency count of given word, or 0 if word is not found."""
-        # TODO: Retrieve word frequency count
+        super().__init__(d)
 
+    def __setitem__(self, key, item):
+        if len(self) > 0:
+            self.sums.append((self.sums[-1][0] + item, key))
+        else:
+            self.sums.append((item, key))
 
-def print_histogram(word_list):
-    print('word list: {}'.format(word_list))
-    # Create a dictogram and display its contents
-    histogram = Dictogram(word_list)
-    print('dictogram: {}'.format(histogram))
-    print('{} tokens, {} types'.format(histogram.tokens, histogram.types))
-    for word in word_list[-2:]:
-        freq = histogram.frequency(word)
-        print('{!r} occurs {} times'.format(word, freq))
-    print()
+        super().__setitem__(key, item)
+    
+    def sample(self):
+        '''
+        Randomly samples a key from a histogram with probability based on the value of each key.
+        Uses binary search to do this in O(log(n)) time.
+        Returns:
+            str: word randomly selected in a weighted way
+        '''
+        if len(self) == 0:
+            return None
 
+        rand = random.randint(1, self.sums[-1])
+        return self.words[bisect.bisect_left(self.sums, rand)]
 
-def main():
-    import sys
-    arguments = sys.argv[1:]  # Exclude script name in first argument
-    if len(arguments) >= 1:
-        # Test histogram on given arguments
-        print_histogram(arguments)
-    else:
-        # Test histogram on letters in a word
-        word = 'abracadabra'
-        print_histogram(list(word))
-        # Test histogram on words in a classic book title
-        fish_text = 'one fish two fish red fish blue fish'
-        print_histogram(fish_text.split())
-        # Test histogram on words in a long repetitive sentence
-        woodchuck_text = ('how much wood would a wood chuck chuck'
-                          ' if a wood chuck could chuck wood')
-        print_histogram(woodchuck_text.split())
+def test_hist_sample(hist):
+    occurances = {}
+    for key in hist:
+        occurances[key] = 0
+
+    for _ in range(100000):
+        occurances[hist.sample()] += 1
+
+    for key in occurances:
+        occurances[key] /= 100000
+
+    print(json.dumps(occurances, indent=4))
 
 
 if __name__ == '__main__':
-    main()
+    # test_hist = Dictogram({'red':1, 'fish':4, 'blue':1, 'one':1, 'two':1})
+    test_hist = Dictogram(word_list=['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
+    print(test_hist.sample())
+    test_hist_sample(test_hist)
