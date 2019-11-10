@@ -1,19 +1,25 @@
 from flask import Flask
-from main_code.histogram import dict_histogram
-from dictogram import Dictogram
+from markov_model import generate_markov_model
+from random import choice
 
 app = Flask(__name__)
 
 with open('corpus/pinkfloyd.txt') as f:
     words = f.read().split(' ')
 
-hist = Dictogram(dict_histogram(words))
+mkv = generate_markov_model(words)
 
 @app.route('/')
 def index():
     output = []
-    for _ in range(10):
-        output.append(hist.sample())
+    keys = list(mkv.keys())
+    current_word = mkv[choice(keys)].sample()
+
+    for _ in range(100):
+        current_dict = mkv[current_word]
+        current_word = current_dict.sample()
+        output.append(current_word)
+
     return ' '.join(output)
 
 if __name__ == '__main__':

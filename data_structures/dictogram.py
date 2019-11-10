@@ -7,13 +7,19 @@ class Dictogram(dict):
     """ 
     Custom dictogram class uses cache of sums and keys for log(n) sampling.
     """
-    # List of cached sums of previous values in the hist used for sampling. Parallel to words.
-    sums = []
-    # List of cached keys in the hist used for sampling. Parallel to sums.
-    words = []
 
-    def __init__(self, d={}, word_list=[]):
+    def __init__(self, d=None, word_list=None):
         """Initialize this histogram as a new dict and add sum."""
+
+        # List of cached sums of previous values in the hist used for sampling. Parallel to words.
+        self.sums = []
+        # List of cached keys in the hist used for sampling. Parallel to sums.
+        self.words = []
+
+        if d is None:
+            d = {}
+        if word_list is None:
+            word_list = []
 
         for word in word_list:
             if word in d:
