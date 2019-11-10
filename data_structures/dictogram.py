@@ -9,7 +9,7 @@ class Dictogram(dict):
     """
     # List of cached sums of previous values in the hist used for sampling. Parallel to words.
     sums = []
-    # List of cached keys used for sampling. Parallel to sums.
+    # List of cached keys in the hist used for sampling. Parallel to sums.
     words = []
 
     def __init__(self, d={}, word_list=[]):
@@ -20,24 +20,32 @@ class Dictogram(dict):
                 d[word] += 1
             else:
                 d[word] = 1
-        
-        items = list(d.items())
-        for i, v in enumerate(items):
-            key, value = v
-            if i > 0:
-                value += self.sums[i-1]
-            self.sums.append(value)
-            self.words.append(key)
 
         super().__init__(d)
 
-    def __setitem__(self, key, item):
-        if len(self) > 0:
-            self.sums.append((self.sums[-1][0] + item, key))
-        else:
-            self.sums.append((item, key))
+        self.update_cache()
 
-        super().__setitem__(key, item)
+    def update_cache(self):
+        """
+        After modifying items in the dictogram, it's necessary to call update_cache.
+        Updates the sums and words cache using data from the histogram.
+        """
+        i = 0
+        for i, v in enumerate(self.items()):
+            key, value = v
+            if i > 0:
+                value += self.sums[i-1]
+
+            try:
+                self.sums[i] = value
+                self.words[i] = key
+            except IndexError:
+                self.sums.append(value)
+                self.words.append(key)
+
+        # If items are removed from dict, remove them from cache
+        del self.sums[i+1:]
+        del self.words[i+1:]
     
     def sample(self):
         '''

@@ -1,5 +1,7 @@
 #!python
 
+''' Not yet modified for my custom dictogram class so tests will likely fail '''
+
 from dictogram import Dictogram
 import unittest
 # Python 2 and 3 compatibility: unittest module renamed this assertion method
