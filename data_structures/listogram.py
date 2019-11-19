@@ -11,9 +11,9 @@ class Listogram(list):
         super(Listogram, self).__init__()  # Initialize this as a new list
         # Add properties to track useful word counts for this histogram
         # Count of distinct word types in this histogram
-        self.types = 0 if word_list is None else len(set(word_list))  
+        self.types = 0
         # Total count of all word tokens in this histogram
-        self.tokens = len(word_list)
+        self.tokens = 0
         # Count words in given list, if any
         for word in word_list:
             self.add_count(word)
@@ -22,15 +22,24 @@ class Listogram(list):
         """Increase frequency count of given word by given count amount."""
         for i, word_and_count in enumerate(self):
             if word_and_count[0] == word:
-                self[i][1] += count
+                # This code is terrible but I don't see any other way to make Listogram fit the tests.
+                # Why would you require us to use a list of tuples when we need to modify the values in them frequently?
+                mutable_current_index = list(self[i])
+                mutable_current_index[1] += count
+                self[i] = tuple(mutable_current_index)
+                break
         else:
-            self.append([word, count])
+            self.append((word, count))
+        self.types = len(self)
+        self.tokens += count
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
         for word_and_count in self:
             if word_and_count[0] == word:
                 return word_and_count[1]
+        else:
+            return 0
 
     def __contains__(self, word):
         """Return boolean indicating if given word is in this histogram."""
