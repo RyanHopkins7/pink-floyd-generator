@@ -1,4 +1,4 @@
-from data_structures.dictogram import Dictogram
+from data_structures.histogram import Histogram
 import json
 from random import choice
 
@@ -13,10 +13,10 @@ def generate_markov_model(word_list):
             else:
                 markov_model[word][word_list[i+1]] = 1
         else:
-            markov_model[word] = Dictogram(word_list=[word_list[i+1]])
+            markov_model[word] = Histogram(word_list=[word_list[i+1]])
 
-    for dicto in markov_model:
-        markov_model[dicto].update_cache()
+    for histo in markov_model:
+        markov_model[histo].update_cache()
 
     return markov_model
 
@@ -31,8 +31,8 @@ if __name__ == '__main__':
     current_word = mkv[choice(keys)].sample()
 
     for _ in range(10):
-        current_dict = mkv[current_word]
-        current_word = current_dict.sample()
+        current_hist = mkv[current_word]
+        current_word = current_hist.sample()
         output.append(current_word)
 
     print(output)
