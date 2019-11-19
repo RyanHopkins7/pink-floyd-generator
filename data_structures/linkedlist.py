@@ -89,7 +89,7 @@ class LinkedList(object):
         node = self.head
         while node is not None:
             if quality(node.data):
-                return node.data
+                return node
             node = node.next
 
     def delete(self, item):
