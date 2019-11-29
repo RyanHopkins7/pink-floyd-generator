@@ -14,7 +14,12 @@ class Histogram(dict):
     """
 
     def __init__(self, d={}, word_list=[]):
-        """Initialize this histogram as a new dict and add sum."""
+        """
+        Initialize this histogram dict with data from either an existing histogram or a list of words.
+        Args:
+            d (dict): A histogram to initialize current object's data off of. Can leave blank.
+            word_list (list): A list of words to initialize the histogram's data off of. Can leave blank.
+        """
 
         # List of cached sums of previous values in the hist used for sampling. Parallel to words.
         self.sums = []
@@ -33,7 +38,7 @@ class Histogram(dict):
 
     def update_cache(self):
         """
-        After modifying items in the dictogram, it's necessary to call update_cache.
+        After modifying items in the histogram, it's necessary to call update_cache.
         Updates the sums and words cache using data from the histogram.
         """
         for i, v in enumerate(self.items()):
@@ -52,13 +57,12 @@ class Histogram(dict):
         del self.sums[i+1:]
         del self.words[i+1:]
     
-    """THIS METHOD IS SAMPLE BY FREQUENCY"""
     def sample(self):
         '''
         Randomly samples a key from a histogram with probability based on the value of each key.
         Uses binary search to do this in O(log(n)) time.
         Returns:
-            str: word randomly selected in a weighted way
+            str: word randomly selected in a weighted way from histogram
         '''
         if len(self) == 0:
             return None

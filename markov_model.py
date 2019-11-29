@@ -3,6 +3,13 @@ import json
 from random import choice
 
 def generate_markov_model(word_list):
+    """
+    Generates a markov chain dictionary of Histogram objects.
+    Args:
+        word_list (list): List of words to train markov model off of.
+    Returns:
+        (dict): Markov model dictionary.
+    """
     markov_model = {}
 
     # Never adds last word in list to markov_model
