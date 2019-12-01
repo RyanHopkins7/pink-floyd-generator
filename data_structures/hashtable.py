@@ -61,15 +61,14 @@ class HashTable(object):
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        Running time: O(N) Where N is the length of the key because you need to hash the key"""
+        Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
         bucket = self.buckets[hash(key) % len(self.buckets)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         return bool(bucket.find(quality))
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-        Running time: O(N + M) where N is the length of key and M is the number of nodes in the bucket
-        because it's necessary to hash the key and search through all the nodes in its corresponding bucket"""
+        Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
         bucket = self.buckets[hash(key) % len(self.buckets)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         existing_key_node = bucket.find(quality)
@@ -80,8 +79,7 @@ class HashTable(object):
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        Running time: O(N + M) where N is the length of key and M is the number of nodes in its corresponding bucket
-        because it's necessary to hash the key and search through all the nodes in the bucket"""
+        Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
         bucket = self.buckets[hash(key) % len(self.buckets)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         existing_key_node = bucket.find(quality)
@@ -92,8 +90,7 @@ class HashTable(object):
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
-        Running time: O(N + M) where N is the length of key and M is the number of nodes in its corresponding bucket
-        because it's necessary to hash the key and search through all the nodes in the bucket"""
+        Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
         bucket = self.buckets[hash(key) % len(self.buckets)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         existing_key_node = bucket.find(quality)
