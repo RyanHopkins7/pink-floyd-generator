@@ -1,45 +1,47 @@
-from data_structures.histogram import Histogram
-import json
 from random import choice
+from memory import Memory
 
-def generate_markov_model(word_list):
-    """
-    Generates a markov chain dictionary of Histogram objects.
-    Args:
-        word_list (list): List of words to train markov model off of.
-    Returns:
-        (dict): Markov model dictionary.
-    """
-    markov_model = {}
+class MarkovModel(dict):
+    """ Dictionary based nth order markov model """
 
-    # Never adds last word in list to markov_model
-    for i, word in enumerate(word_list[:-1]):
-        if word in markov_model:
-            if word_list[i+1] in markov_model[word]:
-                markov_model[word][word_list[i+1]] += 1
-            else:
-                markov_model[word][word_list[i+1]] = 1
+    def __init__(self, corpus=None, order=1):
+        # init_memory used for initializing markov model and adding states
+        self.init_memory = Memory(order)
+        # memory used for sampling from markov model
+        self.memory = Memory(order)
+
+        # Adding states spliced before order allows model to loop to beginning once the end is reached when sampling
+        for message in corpus + corpus[:order]:
+            self.add_state(message)
+
+    def add_state(self, new_state):
+        """ Add a state to markov model and add new state to init_memory """
+        current_state = self.init_memory.serialize()
+        
+        if current_state in self:
+            self[current_state].append(new_state)
         else:
-            markov_model[word] = Histogram(word_list=[word_list[i+1]])
+            self[current_state] = [new_state]
 
-    for histo in markov_model:
-        markov_model[histo].update_cache()
+        self.init_memory.enqueue(new_state)
 
-    return markov_model
+    def sample(self, N=1, starting_state=tuple()):
+        """ Return generator from sampling N times from markov model """
+        for _ in range(N):
+            next_state = choice(self[starting_state])
+            self.memory.enqueue(next_state)
+            yield next_state
+            starting_state = self.memory.serialize()
+        self.memory.clear()
 
 if __name__ == '__main__':
     with open('corpus/pinkfloyd.txt') as f:
         words = f.read().split()
 
-    mkv = generate_markov_model(words)
+    mkv = MarkovModel(corpus=words, order=2)
 
-    output = []
-    keys = list(mkv.keys())
-    current_word = mkv[choice(keys)].sample()
+    print(' '.join(mkv.sample(100)) + '\n')
+    print(' '.join(mkv.sample(100)))
 
-    for _ in range(10):
-        current_hist = mkv[current_word]
-        current_word = current_hist.sample()
-        output.append(current_word)
 
-    print(output)
+
