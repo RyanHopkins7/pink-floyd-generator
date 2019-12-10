@@ -1407,16 +1407,16 @@ As you look around this room tonight
 Settle in your seat and dim the lights
 Do you want my blood, do you want my tears?
 What do you want?
-(What do you want from me?)
+What do you want from me?
 Should I sing until I can't sing anymore?
 Play these strings until my fingers are raw
 You're so hard to please
 What do you want from me?
 
 Do you think that I know something you don't know?
-(What do you want from me?)
+What do you want from me?
 If I don't promise you the answers, would you go?
-(What do you want from me?)
+What do you want from me?
 Should I stand out in the rain?
 Do you want me to make a daisy chain for you?
 I'm not the one you need
@@ -1480,13 +1480,13 @@ Didn't recognize I'd become
 No more than alive I'd barely survive
 In a word... overrun
 
-Won't hear a sound (He's curled into the corner)
-From my mouth (But still the screen is flickering)
-I've spent too long (With an endless stream of garbage to)
-On the inside out (...curse the place)
-My skin is cold (In a sea of random images)
-To the human touch (The self-destructing animal)
-This bleeding heart's (Waiting for the waves to break)
+Won't hear a sound He's curled into the corner
+From my mouth But still the screen is flickering
+I've spent too long With an endless stream of garbage to
+On the inside out ...curse the place
+My skin is cold In a sea of random images
+To the human touch The self-destructing animal
+This bleeding heart's Waiting for the waves to break
 Not beating much
 
 I murmured a vow of silence and now
@@ -1510,13 +1510,13 @@ Clear through the clouds that covered me
 Just give it time then speak my name
 Now we can hear ourselves again
 
-I'm holding out (He's standing on the threshold)
-For the day (Caught in fiery anger)
-When all the clouds (And hurled into the furnace he'll)
-Have blown away (...curse the place)
-I'm with you now (He's torn in all directions)
-Can speak your name (And still the screen is flickering)
-Now we can hear (Waiting for the flames to break)
+I'm holding out He's standing on the threshold
+For the day Caught in fiery anger
+When all the clouds And hurled into the furnace he'll
+Have blown away ...curse the place
+I'm with you now He's torn in all directions
+Can speak your name And still the screen is flickering
+Now we can hear Waiting for the flames to break
 Ourselves again
 
 Her love rains down on me easy as the breeze
@@ -1577,26 +1577,26 @@ There's a silence surrounding me
 I can't seem to think straight
 I'll sit in the corner
 And no one can bother me
-I think I should speak now (Why won't you talk to me)
-I can't seem to speak now (You never talk to me)
-My words won't come out right (What are you thinking)
-I feel like I'm drowning (What are you feeling)
-I'm feeling weak now (Why won't you talk to me)
-But I can't show my weakness (You never talk to me)
-I sometimes wonder (What are you thinking)
-Where do we go from here (What are you feeling)
+I think I should speak now Why won't you talk to me
+I can't seem to speak now You never talk to me
+My words won't come out right What are you thinking
+I feel like I'm drowning What are you feeling
+I'm feeling weak now Why won't you talk to me
+But I can't show my weakness You never talk to me
+I sometimes wonder What are you thinking
+Where do we go from here What are you feeling
 
 It doesn't have to be like this
 All we need to do is make sure we keep talking
 
-(Why won't you talk to me) I feel like I'm drowning
-(You never talk to me) You know I can't breathe now
-(What are you thinking) We're going nowhere
-(What are you feeling) We're going nowhere
-(Why won't you talk to me)
-(You never talk to me)
-(What are you thinking)
-(Where do we go from here)
+Why won't you talk to me I feel like I'm drowning
+You never talk to me You know I can't breathe now
+What are you thinking We're going nowhere
+What are you feeling We're going nowhere
+Why won't you talk to me
+You never talk to me
+What are you thinking
+Where do we go from here
 
 It doesn't have to be like this
 All we need to do is make sure we keep talking
@@ -2305,12 +2305,12 @@ And wouldn't Maggie be pleased?
 Nah nah nah nah nah nah nah!
 
 "s'cusi dove il bar
-(What?)
+What?
 se para collo pou eine toe bar
 s'il vous plait ou est le bar
-(...say it in English!...)
+...say it in English!...
 oi, where's the fucking bar John?
-(Oh, now you're talking!)"
+Oh, now you're talking!"
 Oh! Rule Britannia! Britannia rules the day
 Down!
 Go, Maggie!
@@ -2441,8 +2441,8 @@ One world, it's a battleground
 One world, and we will smash it down
 One world ... One world
 
-(One world)
-(One world)
+One world
+One world
 
 The dogs of war don't negotiate
 The dogs of war won't capitulate
