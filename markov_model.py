@@ -4,7 +4,7 @@ from memory import Memory
 class MarkovModel(dict):
     """ Dictionary based nth order markov model """
 
-    def __init__(self, corpus=None, order=1):
+    def __init__(self, corpus=[], order=1):
         # init_memory used for initializing markov model and adding states
         self.init_memory = Memory(order)
         # memory used for sampling from markov model
@@ -37,10 +37,10 @@ class MarkovModel(dict):
 if __name__ == '__main__':
     with open('corpus/pinkfloyd.txt') as f:
         words = f.read().split()
+        print(len(words))
 
     mkv = MarkovModel(corpus=words, order=2)
 
-    print(' '.join(mkv.sample(100)) + '\n')
     print(' '.join(mkv.sample(100)))
 
 
