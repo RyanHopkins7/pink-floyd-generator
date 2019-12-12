@@ -62,14 +62,14 @@ class HashTable(object):
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
-        bucket = self.buckets[hash(key) % len(self.buckets)]
+        bucket = self.buckets[self._bucket_index(key)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         return bool(bucket.find(quality))
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
         Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
-        bucket = self.buckets[hash(key) % len(self.buckets)]
+        bucket = self.buckets[self._bucket_index(key)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         existing_key_node = bucket.find(quality)
         if existing_key_node:
@@ -80,7 +80,7 @@ class HashTable(object):
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
-        bucket = self.buckets[hash(key) % len(self.buckets)]
+        bucket = self.buckets[self._bucket_index(key)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         existing_key_node = bucket.find(quality)
         if existing_key_node:
@@ -91,7 +91,7 @@ class HashTable(object):
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
         Running time: O(L) where L is the load factor because it's necessary to traverse the given bucket"""
-        bucket = self.buckets[hash(key) % len(self.buckets)]
+        bucket = self.buckets[self._bucket_index(key)]
         quality = lambda kv_tuple: kv_tuple[0] == key
         existing_key_node = bucket.find(quality)
         if existing_key_node:
