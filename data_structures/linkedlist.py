@@ -19,6 +19,7 @@ class LinkedList(object):
         """Initialize this linked list and append the given items, if any."""
         self.head = None  # First node
         self.tail = None  # Last node
+        self.len = 0
         # Append given items
         if items is not None:
             for item in items:
@@ -54,13 +55,8 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        Running time: O(N) because you have to traverse the whole list"""
-        count = 0
-        node = self.head
-        while node is not None:
-            count += 1
-            node = node.next
-        return count
+        Running time: O(1) because you only have to access the len variable"""
+        return self.len
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -72,6 +68,7 @@ class LinkedList(object):
         else:
             self.tail.next = to_append
             self.tail = self.tail.next
+        self.len += 1
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
@@ -81,6 +78,7 @@ class LinkedList(object):
             self.tail = to_prepend
         to_prepend.next = self.head
         self.head = to_prepend
+        self.len += 1
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
@@ -105,16 +103,19 @@ class LinkedList(object):
             self.head = node.next
             if self.head is None:
                 self.tail = None
+            self.len -= 1
             return
 
         while node is not None:
             if node.next is not None and node.next.data == item:
                 if node.next.next is not None:
                     node.next = node.next.next
+                    self.len -= 1
                     return
                 else:
                     node.next = None
                     self.tail = node
+                    self.len -= 1
                     return
             node = node.next
 
