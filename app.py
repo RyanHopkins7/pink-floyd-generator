@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from markov_model import MarkovModel
+from random import choice
 
 app = Flask(__name__)
 
@@ -8,11 +9,20 @@ with open('corpus/pinkfloyd.txt') as f:
 
 mkv = MarkovModel(corpus=words, order=2)
 
+start_states = list(mkv.keys())
+
 @app.route('/')
 def index():
-    output = list(mkv.sample(100))
+    starting_state = choice(start_states)
 
-    # Clean output to end at the end of a sentence        
+    output = list(mkv.sample(120, starting_state=starting_state))
+
+    # Clean output to begin at the beginning of a sentence and end at the end of a sentence
+    for i, word in enumerate(output):
+        if word[0].isupper():
+            output = output[i:]
+            break
+
     for i, word in enumerate(reversed(output)):
         if word[-1] in '.?!':
             output = output[:len(output)-i]

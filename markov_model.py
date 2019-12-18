@@ -27,6 +27,9 @@ class MarkovModel(dict):
 
     def sample(self, N=1, starting_state=tuple()):
         """ Return generator from sampling N times from markov model """
+        for state in starting_state:
+            self.memory.enqueue(state)
+            
         for _ in range(N):
             next_state = choice(self[starting_state])
             self.memory.enqueue(next_state)
